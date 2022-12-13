@@ -18,13 +18,18 @@ app.component('product-display', {
       <div class="product-info">
         <h1>{{ productBrand }}</h1>
         <h2>{{ productName }}</h2>
-        <p v-if="inStock">In Stock</p>
-        <p v-else>Out of Stock</p>
+        <p class="in" v-if="inStock">In Stock</p>
+        <p class="out" v-else>Out of Stock</p>
+        <div class="price">
+        <h3> {{price}} $ </h3>
+        <span>{{crossedPrice}} $</span>
+        </div>
         <p>Shipping: {{ shipping }} $</p>
         <ul>
-          <li v-for="detail in details">{{ detail }}</li>
+          <li v-for="detail in details">({{ detail }}),</li>
         </ul>
-
+        <!-- Color variants -->
+        <div class="color-container">
         <div class="color-circle"
           v-for="(variant, index) in variants" 
           :key="variant.id"
@@ -33,6 +38,7 @@ app.component('product-display', {
           @mouseover="updateProduct(index)"
           >
         </div> 
+        </div>
         <!-- Select a size -->
         <div class="select">
           <select 
@@ -74,6 +80,8 @@ app.component('product-display', {
           availableSizes: ['4US', '5US', '5.5US', '6US', '6.5US', '7US', '7.5US', '8.5US'],
           premium: true,
           available: true,
+          price : 1285,
+          crossedPrice : 1700,
         },
         {
           id: 2235,
@@ -85,6 +93,8 @@ app.component('product-display', {
           availableSizes: false,
           premium: true,
           available: false,
+          price : 1200,
+          crossedPrice : 1500,
         },
         {
           id: 1827,
@@ -95,7 +105,9 @@ app.component('product-display', {
           image: './assets/images/Air-Jordan-1-Retro-Low-OG-SP-Travis-Scott-Black-Phantom-Product.png',
           availableSizes: ['4US', '5US', '5.5US', '6US', '8.5US', '9US', '9.5US'],
           premium: true,
-          available: true
+          available: true,
+          price : 2300,
+          crossedPrice: 2500,
         }
       ],
       reviews: [],
@@ -107,7 +119,7 @@ app.component('product-display', {
     addToCart() {
       // permit the user to select a size from this.variants[this.selectedVariant].availableSizes
 
-      this.$emit('add-to-cart', this.variants[this.selectedVariant].id)
+      this.$emit('add-to-cart', this.variants[this.selectedVariant].brand + ' ' + this.variants[this.selectedVariant].model)
     },
     updateProduct(index) {
       this.selectedVariant = index
@@ -135,6 +147,12 @@ app.component('product-display', {
         return 2.99
       }
       return "Free"
+    },
+    price(){
+      return this.variants[this.selectedVariant].price
+    },
+    crossedPrice(){
+      return this.variants[this.selectedVariant].crossedPrice
     }
   }
 })
