@@ -7,17 +7,36 @@
     <link rel="stylesheet" href="./assets/styles.css" />
     <!-- Import Vue.js -->
     <script src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
+    <!-- Import FontAwesome -->
+    <script>
+      import { library } from '@fortawesome/fontawesome-svg-core';
+    import { fas } from '@fortawesome/free-solid-svg-icons';
+    library.add(fas);
+    </script>
+
   </head>
   <body>
     <div id="app">
-      <div class="nav-bar"></div>
+      <div class="nav-bar">
+        <h1>MetaKyK'S</h1>
+      </div>
 
       <div class="cart">
-        <p> Cart ({{ cart.length }})
+        <!-- <font-awesome-icon icon="fa-solid fa-cart-shopping" /> -->
+        <p> <!--Button to display content of the cart-->
+          Cart({{ cart.length }})
+                            
         </p>
+        <span >
+          <ul>
+            <li v-for="item in cart" :key="item.id">
+              {{ item }} 
+            </li>
+          </ul>
+        </span>
       </div>
       <product-display
-        :premium="premium"
+        :premium="premiumve"
         @add-to-cart="updateCart"
       ></product-display>
     </div>
