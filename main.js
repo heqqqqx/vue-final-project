@@ -3,7 +3,8 @@ const app = Vue.createApp({
   data() {
     return {
       premium: true,
-      cart: []
+      cart: [],
+      im : '/assets/images/Shoes_symbol.webp'
     }
   },
   methods: {
@@ -14,3 +15,5 @@ const app = Vue.createApp({
     }
   }
 })
+
+createApp(App).use(store).use(router).mount('#app').component('fa', FontAwesomeIcon);
